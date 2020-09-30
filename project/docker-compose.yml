@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+
+  tomcat:
+    image: tomcat:latest
+    restart: always
+    ports:
+      - 8888:8080
+    volumes:
+      - ./webapps:/usr/local/tomcat/webapps
+    container_name: project_tomcat
+    links:
+      - mysql:mysql
+  
+  mysql:
+    image: mysql
+    ports:
+        - 3306:3306
+    expose:
+    - "3306"
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: root
+    container_name: project_mysql
+    # volumes:
+    #   - ./webapps/db:/var/lib/mysql
+
